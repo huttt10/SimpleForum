@@ -17,8 +17,12 @@ namespace SimpleForum.Controllers
 
         public IActionResult Index()
         {
-            var tableForums = dbContext.Forums.ToList();
-            return View(tableForums);
+            List<Forum> tableForum = new List<Forum>();
+            if(dbContext != null)
+            {
+                tableForum = dbContext.Forums.ToList();
+            }
+            return View(tableForum);
         }
 
         public IActionResult Privacy()
