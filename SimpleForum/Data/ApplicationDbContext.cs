@@ -11,8 +11,8 @@ namespace SimpleForum.Data
         {
         }
 
-        DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        DbSet<Contribution> Contributions { get; set; }
-        DbSet<Forum> Forums { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Contribution> Contributions { get; set; }
+        public DbSet<Forum> Forums { get; set; }
     }
 }

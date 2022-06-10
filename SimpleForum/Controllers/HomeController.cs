@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SimpleForum.Data;
 using SimpleForum.Models;
 using System.Diagnostics;
 
@@ -7,6 +8,7 @@ namespace SimpleForum.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ApplicationDbContext dbContext;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -15,7 +17,8 @@ namespace SimpleForum.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var tableForums = dbContext.Forums.ToList();
+            return View(tableForums);
         }
 
         public IActionResult Privacy()
