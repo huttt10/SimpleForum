@@ -8,20 +8,22 @@ namespace SimpleForum.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private ApplicationDbContext dbContext;
+        private ApplicationDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
             List<Forum> tableForum = new List<Forum>();
-            if(dbContext != null)
-            {
-                tableForum = dbContext.Forums.ToList();
-            }
+            //List<Forum> testc = dbContext.Forums.ToList();
+            //if(dbContext.Forums != null)
+            //{
+            //    tableForum = dbContext.Forums.ToList();
+            //}
             return View(tableForum);
         }
 

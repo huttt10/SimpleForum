@@ -7,8 +7,14 @@ namespace SimpleForum.Controllers
 {
     public class CreateForumController : Controller
     {
-        private ApplicationDbContext DbContext;
+        private ApplicationDbContext _dbContext;
         
+        public CreateForumController(ApplicationDbContext DbContext)
+        {
+            _dbContext = DbContext;
+        }
+
+
         public IActionResult Index()
         {
             return View();
@@ -16,8 +22,8 @@ namespace SimpleForum.Controllers
 
         public IActionResult CreateForum(Forum forum)
         {
-            DbContext.Forums.Add(forum);
-            DbContext.SaveChanges();
+            _dbContext.Forums.Add(forum);
+            _dbContext.SaveChanges();
 
             return View();
         }

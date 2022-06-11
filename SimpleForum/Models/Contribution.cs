@@ -11,6 +11,8 @@ namespace SimpleForum.Models
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
         public string Contetent { get; set; }
 
     }
