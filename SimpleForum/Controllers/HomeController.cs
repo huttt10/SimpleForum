@@ -19,11 +19,10 @@ namespace SimpleForum.Controllers
         public IActionResult Index()
         {
             List<Forum> tableForum = new List<Forum>();
-            //List<Forum> testc = dbContext.Forums.ToList();
-            //if(dbContext.Forums != null)
-            //{
-            //    tableForum = dbContext.Forums.ToList();
-            //}
+            if(_dbContext.Forums != null)
+            {
+                tableForum = _dbContext.Forums.ToList();
+            }
             return View(tableForum);
         }
 

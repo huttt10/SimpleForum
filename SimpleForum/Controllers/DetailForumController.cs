@@ -6,10 +6,16 @@ namespace SimpleForum.Controllers
 {
     public class DetailForumController : Controller
     {
-        private ApplicationDbContext dbContext;
+        private ApplicationDbContext _dbContext;
+
+        public DetailForumController(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public IActionResult Index(int idForum)
         {
-            Forum forum = dbContext.Forums.SingleOrDefault(x => x.Id == idForum);
+            Forum forum = _dbContext.Forums.SingleOrDefault(x => x.Id == idForum);
             
             return View(forum);
         }

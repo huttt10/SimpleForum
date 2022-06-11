@@ -25,7 +25,7 @@ namespace SimpleForum.Controllers
             _dbContext.Forums.Add(forum);
             _dbContext.SaveChanges();
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }    
 }
