@@ -9,11 +9,11 @@ using SimpleForum.Data;
 
 #nullable disable
 
-namespace SimpleForum.Data.Migrations
+namespace SimpleForum.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220610150408_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20220612185459_New")]
+    partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -240,15 +240,27 @@ namespace SimpleForum.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Contetent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ForumForeignKey")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ForumForeignKey");
 
                     b.HasIndex("UserId");
 
@@ -263,9 +275,8 @@ namespace SimpleForum.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Contribution")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -340,13 +351,26 @@ namespace SimpleForum.Data.Migrations
 
             modelBuilder.Entity("SimpleForum.Models.Contribution", b =>
                 {
+                    b.HasOne("SimpleForum.Models.Forum", "Forum")
+                        .WithMany("Contribution")
+                        .HasForeignKey("ForumForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SimpleForum.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Forum");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SimpleForum.Models.Forum", b =>
+                {
+                    b.Navigation("Contribution");
                 });
 #pragma warning restore 612, 618
         }

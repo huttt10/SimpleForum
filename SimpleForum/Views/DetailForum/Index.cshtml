@@ -1,36 +1,46 @@
-﻿@model SimpleForum.Models.Forum
+﻿@model SimpleForum.Models.ViewModels.DetailForumViewModel
 
 @{
     ViewData["Title"] = "View";
 }
-
-<h1>View</h1>
 
 <div>
     <h4>Forum</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Forum.Title)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Forum.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Forum.Description)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Contribution)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Contribution)
-        </dd>
+            @Html.DisplayFor(model => model.Forum.Description)
+        </dd>        
     </dl>
 </div>
+
+@foreach(var contribution in Model.Contribution)
+{
+    <div>
+        @Html.Partial("_ContributionPartial", contribution)
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddContribution" asp-controller="DetailForum">
+            @Html.Hidden("IdForum", Model.Forum.Id)
+            <input type="text" name="content" />
+            <input type="submit"/>
+        </form>
+    </div>
+</div>
+
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-controller="Home">Back</a>
 </div>

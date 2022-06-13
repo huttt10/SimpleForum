@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleForum.Data;
 using SimpleForum.Models;
+using System.Security.Claims;
 
 namespace SimpleForum.Controllers
 {
@@ -22,6 +23,9 @@ namespace SimpleForum.Controllers
 
         public IActionResult CreateForum(Forum forum)
         {
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             _dbContext.Forums.Add(forum);
             _dbContext.SaveChanges();
 

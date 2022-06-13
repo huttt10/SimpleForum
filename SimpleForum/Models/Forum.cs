@@ -13,9 +13,8 @@ namespace SimpleForum.Models
 
         public string Description { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;        
 
-        [ForeignKey("UserId")]
-        public int? Contribution { get; set; }
+        public ICollection<Contribution> Contribution { get; set; }
     }
 }

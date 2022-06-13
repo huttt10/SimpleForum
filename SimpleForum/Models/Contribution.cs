@@ -10,6 +10,11 @@ namespace SimpleForum.Models
 
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
+
+        [ForeignKey("Forum")]
+        public int ForumForeignKey { get; set; }
+        public Forum Forum { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
